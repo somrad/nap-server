@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+message FileHostingClient{
+    string ip = 1;
+    int32 port_number = 2;
+    string file_name = 3;
+}
+
+message FileRequest {
+    string file_name = 1;
+
+}
+
+message FileResponse {
+    repeated FileHostingClient availableClients = 1;
+}
+
+message RegisterPeerRequest {
+    string ip = 1;
+    int32 port_number = 2;
+    repeated string file_available_with_me = 3;
+}
+
+message RegisterPeerResponse {
+    string ip = 1;
+    int32 port_number = 2;
+    string registration_success = 3;
+}
+
+service NapsterServer {
+    rpc RegisterPeer (RegisterPeerRequest) returns (RegisterPeerResponse);
+
+    rpc GetPeersServingRequestedFile(FileRequest) returns (FileResponse);
+}
+
