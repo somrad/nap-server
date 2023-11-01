@@ -18,5 +18,8 @@ if __name__ == "__main__":
         print('\n *** Regitering with Server... \n')
         client_to_server.registerWithServer("localhost",args.port, args.files_with_me)
         print('Registration successful, waiting for calls from peer ')
-         
+        
+        response_from_server = client_to_server.queryServerForFile('hare.jpg')
+        print('call returned')
+        print(response_from_server)
         

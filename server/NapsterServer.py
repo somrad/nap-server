@@ -10,7 +10,7 @@ import sqlite3 as sl
 
 import server_to_client_pb2_grpc
 import server_to_client_pb2
-from server_to_client_pb2  import RegisterPeerResponse
+from server_to_client_pb2  import RegisterPeerResponse, FileResponse, FileHostingClient
 
 class NapsterServer(server_to_client_pb2_grpc.NapsterServerServicer):
     def __init__(self) -> None:
@@ -35,6 +35,27 @@ class NapsterServer(server_to_client_pb2_grpc.NapsterServerServicer):
     
     def GetPeersServingRequestedFile(self, request, context):
         print(context)
-        print(request)
+        print(f"File Requested  {request.file_name}")
+        # print(request)
+
+        con = sl.connect('clients.db')
+        sql = f"SELECT * FROM CLIENT_FILES WHERE files = '{request.file_name}'"
+        
+        with con:
+            data = con.execute(sql)
+
+        response = FileResponse()
+        
+        data = list(data)
+        # for row in data:
+        #     print(row)
+             
+        clients_having_file = [FileHostingClient( ip=str(row[0]), port_number= row[1],file_name=row[2]) 
+                                          for row in data]
+        print('clients_having_file:',clients_having_file)
+        response.availableClients.extend(clients_having_file)    
+        
+        print('response', response)
+        return response
 
 

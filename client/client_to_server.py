@@ -5,14 +5,15 @@ import os
 
 
 def queryServerForFile(filename, server_ip='localhost', server_port=50051):
-    file_query_channel = grpc.insecure_channel("{server_ip}:{server_port}")
+    file_query_channel = grpc.insecure_channel(f"{server_ip}:{server_port}")
     file_query_client = NapsterServerStub(file_query_channel)
 
     filereq = FileRequest(file_name=filename)
 
     response = file_query_client.GetPeersServingRequestedFile(filereq)
-
-    print(response)
+    print('response', response)
+    return response.availableClients
+    
 
 
 def registerWithServer(ip,port, files_with_this_client, server_ip='localhost', server_port=50051):
