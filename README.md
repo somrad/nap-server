@@ -14,13 +14,17 @@
 % python main.py   
 
 
-# Running the client at 8097
+## Running the first client at 8097
+
 % cd peer
+
 % python main.py 8097 hare.jpg harekrishna.jpg
 
 
-# Running another client at 9090
+## Running second client at 9090
+
 % cd peer
+
 % python ./main.py 9097 hare2.jpg harekrishna2.jpg
 
 
