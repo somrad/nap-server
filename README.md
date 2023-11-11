@@ -22,3 +22,7 @@
 # Running another client at 9090
 % cd client
 % python main.py 9090 tortoise.jpg 
+
+
+# To run protoc tool after change to a protoc file, run
+protobufs % python -m grpc_tools.protoc -I=. --python_out=. --grpc_python_out=. ./server_to_client.proto

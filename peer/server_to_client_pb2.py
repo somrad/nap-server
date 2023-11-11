@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x16server_to_client.proto\"G\n\x11\x46ileHostingClient\x12\n\n\x02ip\x18\x01 \x01(\t\x12\x13\n\x0bport_number\x18\x02 \x01(\x05\x12\x11\n\tfile_name\x18\x03 \x01(\t\" \n\x0b\x46ileRequest\x12\x11\n\tfile_name\x18\x01 \x01(\t\"<\n\x0c\x46ileResponse\x12,\n\x10\x61vailableClients\x18\x01 \x03(\x0b\x32\x12.FileHostingClient\"V\n\x13RegisterPeerRequest\x12\n\n\x02ip\x18\x01 \x01(\t\x12\x13\n\x0bport_number\x18\x02 \x01(\x05\x12\x1e\n\x16\x66ile_available_with_me\x18\x03 \x03(\t\"U\n\x14RegisterPeerResponse\x12\n\n\x02ip\x18\x01 \x01(\t\x12\x13\n\x0bport_number\x18\x02 \x01(\x05\x12\x1c\n\x14registration_success\x18\x03 \x01(\t2\x89\x01\n\rNapsterServer\x12;\n\x0cRegisterPeer\x12\x14.RegisterPeerRequest\x1a\x15.RegisterPeerResponse\x12;\n\x1cGetPeersServingRequestedFile\x12\x0c.FileRequest\x1a\r.FileResponseb\x06proto3'
+  serialized_pb=b'\n\x16server_to_client.proto\"G\n\x11\x46ileHostingClient\x12\n\n\x02ip\x18\x01 \x01(\t\x12\x13\n\x0bport_number\x18\x02 \x01(\x05\x12\x11\n\tfile_name\x18\x03 \x01(\t\"-\n\x18PeersServingFile_Request\x12\x11\n\tfile_name\x18\x01 \x01(\t\"I\n\x19PeersServingFile_Response\x12,\n\x10\x61vailableClients\x18\x01 \x03(\x0b\x32\x12.FileHostingClient\"V\n\x13RegisterPeerRequest\x12\n\n\x02ip\x18\x01 \x01(\t\x12\x13\n\x0bport_number\x18\x02 \x01(\x05\x12\x1e\n\x16\x66ile_available_with_me\x18\x03 \x03(\t\"8\n\x15UnRegisterPeerRequest\x12\n\n\x02ip\x18\x01 \x01(\t\x12\x13\n\x0bport_number\x18\x02 \x01(\x05\"U\n\x14RegisterPeerResponse\x12\n\n\x02ip\x18\x01 \x01(\t\x12\x13\n\x0bport_number\x18\x02 \x01(\x05\x12\x1c\n\x14registration_success\x18\x03 \x01(\t\"Y\n\x16UnRegisterPeerResponse\x12\n\n\x02ip\x18\x01 \x01(\t\x12\x13\n\x0bport_number\x18\x02 \x01(\x05\x12\x1e\n\x16\x64\x65registration_success\x18\x03 \x01(\t2\xe6\x01\n\rNapsterServer\x12;\n\x0cRegisterPeer\x12\x14.RegisterPeerRequest\x1a\x15.RegisterPeerResponse\x12\x41\n\x0eUnregisterPeer\x12\x16.UnRegisterPeerRequest\x1a\x17.UnRegisterPeerResponse\x12U\n\x1cGetPeersServingRequestedFile\x12\x19.PeersServingFile_Request\x1a\x1a.PeersServingFile_Responseb\x06proto3'
 )
 
 
@@ -71,16 +71,16 @@ _FILEHOSTINGCLIENT = _descriptor.Descriptor(
 )
 
 
-_FILEREQUEST = _descriptor.Descriptor(
-  name='FileRequest',
-  full_name='FileRequest',
+_PEERSSERVINGFILE_REQUEST = _descriptor.Descriptor(
+  name='PeersServingFile_Request',
+  full_name='PeersServingFile_Request',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='file_name', full_name='FileRequest.file_name', index=0,
+      name='file_name', full_name='PeersServingFile_Request.file_name', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -99,20 +99,20 @@ _FILEREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=99,
-  serialized_end=131,
+  serialized_end=144,
 )
 
 
-_FILERESPONSE = _descriptor.Descriptor(
-  name='FileResponse',
-  full_name='FileResponse',
+_PEERSSERVINGFILE_RESPONSE = _descriptor.Descriptor(
+  name='PeersServingFile_Response',
+  full_name='PeersServingFile_Response',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='availableClients', full_name='FileResponse.availableClients', index=0,
+      name='availableClients', full_name='PeersServingFile_Response.availableClients', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -130,8 +130,8 @@ _FILERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=133,
-  serialized_end=193,
+  serialized_start=146,
+  serialized_end=219,
 )
 
 
@@ -176,8 +176,47 @@ _REGISTERPEERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=195,
-  serialized_end=281,
+  serialized_start=221,
+  serialized_end=307,
+)
+
+
+_UNREGISTERPEERREQUEST = _descriptor.Descriptor(
+  name='UnRegisterPeerRequest',
+  full_name='UnRegisterPeerRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='ip', full_name='UnRegisterPeerRequest.ip', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='port_number', full_name='UnRegisterPeerRequest.port_number', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=309,
+  serialized_end=365,
 )
 
 
@@ -222,16 +261,64 @@ _REGISTERPEERRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=283,
-  serialized_end=368,
+  serialized_start=367,
+  serialized_end=452,
 )
 
-_FILERESPONSE.fields_by_name['availableClients'].message_type = _FILEHOSTINGCLIENT
+
+_UNREGISTERPEERRESPONSE = _descriptor.Descriptor(
+  name='UnRegisterPeerResponse',
+  full_name='UnRegisterPeerResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='ip', full_name='UnRegisterPeerResponse.ip', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='port_number', full_name='UnRegisterPeerResponse.port_number', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='deregistration_success', full_name='UnRegisterPeerResponse.deregistration_success', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=454,
+  serialized_end=543,
+)
+
+_PEERSSERVINGFILE_RESPONSE.fields_by_name['availableClients'].message_type = _FILEHOSTINGCLIENT
 DESCRIPTOR.message_types_by_name['FileHostingClient'] = _FILEHOSTINGCLIENT
-DESCRIPTOR.message_types_by_name['FileRequest'] = _FILEREQUEST
-DESCRIPTOR.message_types_by_name['FileResponse'] = _FILERESPONSE
+DESCRIPTOR.message_types_by_name['PeersServingFile_Request'] = _PEERSSERVINGFILE_REQUEST
+DESCRIPTOR.message_types_by_name['PeersServingFile_Response'] = _PEERSSERVINGFILE_RESPONSE
 DESCRIPTOR.message_types_by_name['RegisterPeerRequest'] = _REGISTERPEERREQUEST
+DESCRIPTOR.message_types_by_name['UnRegisterPeerRequest'] = _UNREGISTERPEERREQUEST
 DESCRIPTOR.message_types_by_name['RegisterPeerResponse'] = _REGISTERPEERRESPONSE
+DESCRIPTOR.message_types_by_name['UnRegisterPeerResponse'] = _UNREGISTERPEERRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 FileHostingClient = _reflection.GeneratedProtocolMessageType('FileHostingClient', (_message.Message,), {
@@ -241,19 +328,19 @@ FileHostingClient = _reflection.GeneratedProtocolMessageType('FileHostingClient'
   })
 _sym_db.RegisterMessage(FileHostingClient)
 
-FileRequest = _reflection.GeneratedProtocolMessageType('FileRequest', (_message.Message,), {
-  'DESCRIPTOR' : _FILEREQUEST,
+PeersServingFile_Request = _reflection.GeneratedProtocolMessageType('PeersServingFile_Request', (_message.Message,), {
+  'DESCRIPTOR' : _PEERSSERVINGFILE_REQUEST,
   '__module__' : 'server_to_client_pb2'
-  # @@protoc_insertion_point(class_scope:FileRequest)
+  # @@protoc_insertion_point(class_scope:PeersServingFile_Request)
   })
-_sym_db.RegisterMessage(FileRequest)
+_sym_db.RegisterMessage(PeersServingFile_Request)
 
-FileResponse = _reflection.GeneratedProtocolMessageType('FileResponse', (_message.Message,), {
-  'DESCRIPTOR' : _FILERESPONSE,
+PeersServingFile_Response = _reflection.GeneratedProtocolMessageType('PeersServingFile_Response', (_message.Message,), {
+  'DESCRIPTOR' : _PEERSSERVINGFILE_RESPONSE,
   '__module__' : 'server_to_client_pb2'
-  # @@protoc_insertion_point(class_scope:FileResponse)
+  # @@protoc_insertion_point(class_scope:PeersServingFile_Response)
   })
-_sym_db.RegisterMessage(FileResponse)
+_sym_db.RegisterMessage(PeersServingFile_Response)
 
 RegisterPeerRequest = _reflection.GeneratedProtocolMessageType('RegisterPeerRequest', (_message.Message,), {
   'DESCRIPTOR' : _REGISTERPEERREQUEST,
@@ -262,12 +349,26 @@ RegisterPeerRequest = _reflection.GeneratedProtocolMessageType('RegisterPeerRequ
   })
 _sym_db.RegisterMessage(RegisterPeerRequest)
 
+UnRegisterPeerRequest = _reflection.GeneratedProtocolMessageType('UnRegisterPeerRequest', (_message.Message,), {
+  'DESCRIPTOR' : _UNREGISTERPEERREQUEST,
+  '__module__' : 'server_to_client_pb2'
+  # @@protoc_insertion_point(class_scope:UnRegisterPeerRequest)
+  })
+_sym_db.RegisterMessage(UnRegisterPeerRequest)
+
 RegisterPeerResponse = _reflection.GeneratedProtocolMessageType('RegisterPeerResponse', (_message.Message,), {
   'DESCRIPTOR' : _REGISTERPEERRESPONSE,
   '__module__' : 'server_to_client_pb2'
   # @@protoc_insertion_point(class_scope:RegisterPeerResponse)
   })
 _sym_db.RegisterMessage(RegisterPeerResponse)
+
+UnRegisterPeerResponse = _reflection.GeneratedProtocolMessageType('UnRegisterPeerResponse', (_message.Message,), {
+  'DESCRIPTOR' : _UNREGISTERPEERRESPONSE,
+  '__module__' : 'server_to_client_pb2'
+  # @@protoc_insertion_point(class_scope:UnRegisterPeerResponse)
+  })
+_sym_db.RegisterMessage(UnRegisterPeerResponse)
 
 
 
@@ -278,8 +379,8 @@ _NAPSTERSERVER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=371,
-  serialized_end=508,
+  serialized_start=546,
+  serialized_end=776,
   methods=[
   _descriptor.MethodDescriptor(
     name='RegisterPeer',
@@ -292,12 +393,22 @@ _NAPSTERSERVER = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='GetPeersServingRequestedFile',
-    full_name='NapsterServer.GetPeersServingRequestedFile',
+    name='UnregisterPeer',
+    full_name='NapsterServer.UnregisterPeer',
     index=1,
     containing_service=None,
-    input_type=_FILEREQUEST,
-    output_type=_FILERESPONSE,
+    input_type=_UNREGISTERPEERREQUEST,
+    output_type=_UNREGISTERPEERRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetPeersServingRequestedFile',
+    full_name='NapsterServer.GetPeersServingRequestedFile',
+    index=2,
+    containing_service=None,
+    input_type=_PEERSSERVINGFILE_REQUEST,
+    output_type=_PEERSSERVINGFILE_RESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

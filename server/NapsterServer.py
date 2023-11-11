@@ -10,13 +10,28 @@ import sqlite3 as sl
 
 import server_to_client_pb2_grpc
 import server_to_client_pb2
-from server_to_client_pb2  import RegisterPeerResponse, FileResponse, FileHostingClient
+from server_to_client_pb2  import RegisterPeerResponse, PeersServingFile_Response, FileHostingClient,UnRegisterPeerResponse
 
 class NapsterServer(server_to_client_pb2_grpc.NapsterServerServicer):
     def __init__(self) -> None:
         super().__init__()
+        
         print('NapsterServer Initialized')
 
+
+    def UnregisterPeer(self, request, context):
+        print(f"Client deregistered  {request.ip}:{request.port_number}")
+        # print(request)
+        con = sl.connect('clients.db')
+        sql = f"DELETE  FROM CLIENT_FILES WHERE ip='{request.ip}' AND port={request.port_number}"
+        
+        with con:
+            data = con.execute(sql)
+        
+        response =  UnRegisterPeerResponse( ip=request.ip, port_number= request.port_number,deregistration_success='success')
+        
+        print(response)
+        return response
 
     def RegisterPeer(self, request, context):
         print(f"Client Registered  {request.ip}:{request.port_number} 'with files ' {request.file_available_with_me} ")
@@ -44,7 +59,7 @@ class NapsterServer(server_to_client_pb2_grpc.NapsterServerServicer):
         with con:
             data = con.execute(sql)
 
-        response = FileResponse()
+        response = PeersServingFile_Response()
         
         data = list(data)
         # for row in data:
@@ -52,10 +67,10 @@ class NapsterServer(server_to_client_pb2_grpc.NapsterServerServicer):
              
         clients_having_file = [FileHostingClient( ip=str(row[0]), port_number= row[1],file_name=row[2]) 
                                           for row in data]
-        print('clients_having_file:',clients_having_file)
+        # print('clients_having_file:',clients_having_file)
         response.availableClients.extend(clients_having_file)    
         
-        print('response', response)
+        print(f'Found {len(data)} clients serving {request.file_name}')
         return response
 
 

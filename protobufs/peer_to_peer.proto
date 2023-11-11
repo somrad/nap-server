@@ -1,0 +1,14 @@
+syntax = "proto3";
+message FileResponse {
+  bytes chunk_data = 1;
+}
+
+message MetaData {
+  string filename = 1;
+  string extension = 2;
+}
+
+service Peer {
+ 
+ rpc DownloadFile(MetaData) returns (stream FileResponse ) {}
+}

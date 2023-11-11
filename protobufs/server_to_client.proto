@@ -6,12 +6,12 @@ message FileHostingClient{
     string file_name = 3;
 }
 
-message FileRequest {
+message PeersServingFile_Request {
     string file_name = 1;
 
 }
 
-message FileResponse {
+message PeersServingFile_Response {
     repeated FileHostingClient availableClients = 1;
 }
 
@@ -21,15 +21,26 @@ message RegisterPeerRequest {
     repeated string file_available_with_me = 3;
 }
 
+message UnRegisterPeerRequest {
+    string ip = 1;
+    int32 port_number = 2;
+}
+
 message RegisterPeerResponse {
     string ip = 1;
     int32 port_number = 2;
     string registration_success = 3;
 }
 
+message UnRegisterPeerResponse {
+    string ip = 1;
+    int32 port_number = 2;
+    string deregistration_success = 3;
+}
+
 service NapsterServer {
     rpc RegisterPeer (RegisterPeerRequest) returns (RegisterPeerResponse);
-
-    rpc GetPeersServingRequestedFile(FileRequest) returns (FileResponse);
+    rpc UnregisterPeer(UnRegisterPeerRequest) returns (UnRegisterPeerResponse);
+    rpc GetPeersServingRequestedFile(PeersServingFile_Request) returns (PeersServingFile_Response);
 }
 

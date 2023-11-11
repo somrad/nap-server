@@ -19,10 +19,15 @@ class NapsterServerStub(object):
                 request_serializer=server__to__client__pb2.RegisterPeerRequest.SerializeToString,
                 response_deserializer=server__to__client__pb2.RegisterPeerResponse.FromString,
                 )
+        self.UnregisterPeer = channel.unary_unary(
+                '/NapsterServer/UnregisterPeer',
+                request_serializer=server__to__client__pb2.UnRegisterPeerRequest.SerializeToString,
+                response_deserializer=server__to__client__pb2.UnRegisterPeerResponse.FromString,
+                )
         self.GetPeersServingRequestedFile = channel.unary_unary(
                 '/NapsterServer/GetPeersServingRequestedFile',
-                request_serializer=server__to__client__pb2.FileRequest.SerializeToString,
-                response_deserializer=server__to__client__pb2.FileResponse.FromString,
+                request_serializer=server__to__client__pb2.PeersServingFile_Request.SerializeToString,
+                response_deserializer=server__to__client__pb2.PeersServingFile_Response.FromString,
                 )
 
 
@@ -30,6 +35,12 @@ class NapsterServerServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def RegisterPeer(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UnregisterPeer(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -49,10 +60,15 @@ def add_NapsterServerServicer_to_server(servicer, server):
                     request_deserializer=server__to__client__pb2.RegisterPeerRequest.FromString,
                     response_serializer=server__to__client__pb2.RegisterPeerResponse.SerializeToString,
             ),
+            'UnregisterPeer': grpc.unary_unary_rpc_method_handler(
+                    servicer.UnregisterPeer,
+                    request_deserializer=server__to__client__pb2.UnRegisterPeerRequest.FromString,
+                    response_serializer=server__to__client__pb2.UnRegisterPeerResponse.SerializeToString,
+            ),
             'GetPeersServingRequestedFile': grpc.unary_unary_rpc_method_handler(
                     servicer.GetPeersServingRequestedFile,
-                    request_deserializer=server__to__client__pb2.FileRequest.FromString,
-                    response_serializer=server__to__client__pb2.FileResponse.SerializeToString,
+                    request_deserializer=server__to__client__pb2.PeersServingFile_Request.FromString,
+                    response_serializer=server__to__client__pb2.PeersServingFile_Response.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -82,6 +98,23 @@ class NapsterServer(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def UnregisterPeer(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/NapsterServer/UnregisterPeer',
+            server__to__client__pb2.UnRegisterPeerRequest.SerializeToString,
+            server__to__client__pb2.UnRegisterPeerResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def GetPeersServingRequestedFile(request,
             target,
             options=(),
@@ -93,7 +126,7 @@ class NapsterServer(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/NapsterServer/GetPeersServingRequestedFile',
-            server__to__client__pb2.FileRequest.SerializeToString,
-            server__to__client__pb2.FileResponse.FromString,
+            server__to__client__pb2.PeersServingFile_Request.SerializeToString,
+            server__to__client__pb2.PeersServingFile_Response.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
