@@ -26,3 +26,14 @@
 
 # To run protoc tool after change to a protoc file, run
 protobufs % python -m grpc_tools.protoc -I=. --python_out=. --grpc_python_out=. ./server_to_client.proto
+
+
+## References 
+
+https://realpython.com/python-microservices-grpc/
+
+
+
+https://betterprogramming.pub/grpc-file-upload-and-download-in-python-910cc645bcf0
+
+
